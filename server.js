@@ -5,13 +5,14 @@ const cors = require("cors");
 const bodyParser = require("body-parser");
 
 const app = express();
-app.use(
-  cors({
-    origin: "https://portfolio-jose-pirangaba.vercel.app",
-    methods: "GET,POST",
-    allowedHeaders: "Content-Type,Authorization",
-  })
-);
+
+const corsOptions = {
+  origin: "https://portfolio-jose-pirangaba.vercel.app",
+  methods: "POST",
+  allowedHeaders: ["Content-Type"],
+};
+
+app.use(cors(corsOptions));
 app.use(bodyParser.json());
 
 const transporter = nodemailer.createTransport({
@@ -40,4 +41,7 @@ app.post("/send-email", async (req, res) => {
   }
 });
 
-app.listen(5000, () => console.log("Servidor rodando na porta 5000"));
+const PORT = process.env.PORT || 5000;
+app.listen(PORT, () => console.log(`Servidor rodando na porta ${PORT}`));
+
+module.exports = app;
