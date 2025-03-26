@@ -5,7 +5,13 @@ const cors = require("cors");
 const bodyParser = require("body-parser");
 
 const app = express();
-app.use(cors());
+app.use(
+  cors({
+    origin: "https://portfolio-jose-pirangaba.vercel.app",
+    methods: "GET,POST",
+    allowedHeaders: "Content-Type,Authorization",
+  })
+);
 app.use(bodyParser.json());
 
 const transporter = nodemailer.createTransport({
